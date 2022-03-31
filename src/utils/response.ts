@@ -1,6 +1,6 @@
 type StatusResponse = 'success' | 'error'
-interface DefaultResponse {
-    status: string
+export interface DefaultResponse {
+    status: StatusResponse
     message: string
     data: Record<string, string> | Record<string, string>[]
 }

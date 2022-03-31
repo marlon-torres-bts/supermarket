@@ -20,7 +20,7 @@ export async function getAllUsersDao() {
 }
 
 /**
- * Makes the query to the database the user with the given id
+ * Makes the query to the database to get the user with the given id
  * @param id - User's id to find
  * @returns Promise<QueryResult<any>>
  */
@@ -34,6 +34,12 @@ export async function getUserByIdDao(id: string) {
     }
 }
 
+/**
+ * Makes the query to the database to get the user with the given email
+ * @param email - User's email to find
+ * @param avoidId - User's id to avoid in the query
+ * @returns Promise<QueryResult<any>>
+ */
 export async function getUserByEmailDao(email: string, avoidId?: string) {
     try {
         logger.info('Getting user by email')
