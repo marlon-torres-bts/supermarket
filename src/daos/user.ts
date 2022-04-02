@@ -75,7 +75,7 @@ export async function createUserDao(
         logger.info('Creating user')
         return pool.query(
             `INSERT INTO "users" ("first_name", "last_name", "email")
-                VALUES ($1, $2, $3) RETURNING "id"`,
+                VALUES ($1, $2, $3) RETURNING *`,
             [firstName, lastName, email]
         )
     } catch (error) {
@@ -106,7 +106,8 @@ export async function updateUserDao(
                     "last_name" = $2,
                     "email" = $3,
                     "updated_at" = now()
-                WHERE "id" = $4`,
+                WHERE "id" = $4
+                RETURNING *`,
             [firstName, lastName, email, id]
         )
     } catch (error) {

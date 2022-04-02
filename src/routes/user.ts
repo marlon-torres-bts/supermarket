@@ -3,7 +3,7 @@ import {
     createUserController,
     deleteUserController,
     getUserByIdController,
-    getUsersController,
+    getAllUsersController,
     updateUserController,
 } from '../controllers/user'
 import {
@@ -15,7 +15,7 @@ import {
 
 const router = Router()
 
-router.get('/', getUsersController)
+router.get('/', getAllUsersController)
 router.get('/:id', getUserByIdValidator, getUserByIdController)
 router.post('/', createUserValidator, createUserController)
 router.put('/:id', updateUserValidator, updateUserController)

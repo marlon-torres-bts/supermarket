@@ -18,9 +18,9 @@ export interface UserDB {
     last_name: string
     email: string
     status: string
-    created_at: string
-    updated_at: string | null
-    deleted_at: string | null
+    created_at: Date | string
+    updated_at: Date | string | null
+    deleted_at: Date | string | null
 }
 
 export function createUser({

@@ -1,5 +1,5 @@
 import { pool } from '../../src/config/database'
-import { FilledUser } from '../factories/user.factory'
+import { FilledUser, UserDB } from '../factories/user.factory'
 
 export async function cleanTable(tableName: string) {
     return pool.query(`DELETE FROM ${tableName}`)
@@ -26,5 +26,12 @@ export async function saveUsersToDB(users: FilledUser[]) {
         RETURNING *
     `
 
-    return pool.query(query, values)
+    const createdUsers = await pool.query(query, values)
+
+    return createdUsers.rows.map((u: UserDB) => {
+        return {
+            ...u,
+            created_at: new Date(u.created_at).toISOString(),
+        }
+    })
 }

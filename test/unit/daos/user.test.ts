@@ -24,7 +24,12 @@ describe('userDaos', () => {
     beforeEach(async () => {
         await cleanTable('users')
         const usersData = await createUsers(usersCount)
-        users = (await saveUsersToDB(usersData)).rows
+        users = (await saveUsersToDB(usersData)).map((u) => {
+            return {
+                ...u,
+                created_at: new Date(u.created_at),
+            }
+        })
     })
 
     context('getAllUsersDao', () => {
