@@ -98,9 +98,8 @@ export async function updateUserDao(
     lastName: string,
     email: string
 ) {
-    console.log(id, firstName, lastName, email)
     try {
-        // logger.info('Updating user')
+        logger.info('Updating user')
         return pool.query(
             `UPDATE "users"
                 SET "first_name" = $1,
