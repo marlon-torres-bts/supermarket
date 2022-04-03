@@ -1,7 +1,6 @@
 import { Request, Response } from 'express'
 import { QueryResult } from 'pg'
 import { buildResponse } from '../utils/response'
-import log4js from 'log4js'
 import createError from 'http-errors'
 import {
     createUserDao,
@@ -11,9 +10,9 @@ import {
     getUserByIdDao,
     updateUserDao,
 } from '../daos/user'
+import { createLogger } from '../config/logger'
 
-const logger = log4js.getLogger('controllers/user.ts')
-logger.level = 'debug'
+const logger = createLogger('controller/user.ts')
 
 /**
  * Controller for get all the users

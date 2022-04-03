@@ -6,8 +6,8 @@
     "scripts": {
         "build": "tsc",
         "dev": "ts-node src/index",
-        "test:unit": "DB_NAME=supermarket-test mocha --require ts-node/register --file test/unit/**/*.test.ts",
-        "test:integration": "DB_NAME=supermarket-test mocha --require ts-node/register --file test/integration/**/*.test.ts",
+        "test:unit": "DB_NAME=supermarket-test LOGGER_LEVEL=off mocha --require ts-node/register --file test/unit/**/*.test.ts",
+        "test:integration": "DB_NAME=supermarket-test LOGGER_LEVEL=off mocha --require ts-node/register --file test/integration/**/*.test.ts",
         "test": "npm run test:unit && npm run test:integration"
     },
     "keywords": [],

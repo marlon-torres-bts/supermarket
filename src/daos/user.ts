@@ -1,9 +1,8 @@
 import { pool } from '../config/database'
 import createError from 'http-errors'
-import log4js from 'log4js'
+import { createLogger } from '../config/logger'
 
-const logger = log4js.getLogger('userDaos.ts')
-logger.level = 'debug'
+const logger = createLogger('daos/user.ts')
 
 /**
  * Makes the query to the database to get all the users

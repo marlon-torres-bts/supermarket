@@ -1,12 +1,11 @@
 import { Request, Response } from 'express'
-import Logger from 'log4js'
 import createErrors from 'http-errors'
 import { userDataSchema } from '../validationSchemas/user'
 import { buildResponse } from '../utils/response'
 import { uuidSchema } from '../validationSchemas/shared'
+import { createLogger } from '../config/logger'
 
-const logger = Logger.getLogger('validators/user.ts')
-logger.level = 'debug'
+const logger = createLogger('validators/user.ts')
 
 /**
  * Validates the user id sent in request.params
