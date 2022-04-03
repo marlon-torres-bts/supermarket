@@ -21,7 +21,7 @@ logger.level = 'debug'
  * @param res - Response to send
  * @returns Promise<Response>
  */
-export async function getUsersController(
+export async function getAllUsersController(
     _req: Request,
     res: Response
 ): Promise<Response> {
@@ -103,15 +103,21 @@ export async function createUserController(
             email
         )
 
-        const id = dbResponse.rows[0].id
-        return res.status(201).json(
-            buildResponse('success', 'User created successfully', {
-                id,
-                firstName,
-                lastName,
-                email,
-            })
-        )
+        const createdUser = dbResponse.rows[0]
+        const formattedUser = {
+            ...createdUser,
+            created_at: createdUser.created_at.toISOString(),
+        }
+
+        return res
+            .status(201)
+            .json(
+                buildResponse(
+                    'success',
+                    'User created successfully',
+                    formattedUser
+                )
+            )
     } catch (error: any) {
         logger.error('Error on createUserController: ', error.message)
         return res
@@ -146,7 +152,13 @@ export async function updateUserController(
                 `User with email ${email} already exists`
             )
 
-        await updateUserDao(userId, firstName, lastName, email)
+        const response = await updateUserDao(userId, firstName, lastName, email)
+        const updatedUser = response.rows[0]
+        const formattedUser = {
+            ...updatedUser,
+            created_at: updatedUser.created_at.toISOString(),
+            updated_at: updatedUser.updated_at.toISOString(),
+        }
 
         return res
             .status(200)
@@ -154,7 +166,7 @@ export async function updateUserController(
                 buildResponse(
                     'success',
                     `User with id ${userId} updated successfully`,
-                    { id: userId, firstName, lastName, email }
+                    formattedUser
                 )
             )
     } catch (error: any) {

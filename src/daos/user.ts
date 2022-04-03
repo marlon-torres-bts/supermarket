@@ -20,7 +20,7 @@ export async function getAllUsersDao() {
 }
 
 /**
- * Makes the query to the database the user with the given id
+ * Makes the query to the database to get the user with the given id
  * @param id - User's id to find
  * @returns Promise<QueryResult<any>>
  */
@@ -34,6 +34,12 @@ export async function getUserByIdDao(id: string) {
     }
 }
 
+/**
+ * Makes the query to the database to get the user with the given email
+ * @param email - User's email to find
+ * @param avoidId - User's id to avoid in the query
+ * @returns Promise<QueryResult<any>>
+ */
 export async function getUserByEmailDao(email: string, avoidId?: string) {
     try {
         logger.info('Getting user by email')
@@ -69,7 +75,7 @@ export async function createUserDao(
         logger.info('Creating user')
         return pool.query(
             `INSERT INTO "users" ("first_name", "last_name", "email")
-                VALUES ($1, $2, $3) RETURNING "id"`,
+                VALUES ($1, $2, $3) RETURNING *`,
             [firstName, lastName, email]
         )
     } catch (error) {
@@ -92,16 +98,16 @@ export async function updateUserDao(
     lastName: string,
     email: string
 ) {
-    console.log(id, firstName, lastName, email)
     try {
-        // logger.info('Updating user')
+        logger.info('Updating user')
         return pool.query(
             `UPDATE "users"
                 SET "first_name" = $1,
                     "last_name" = $2,
                     "email" = $3,
                     "updated_at" = now()
-                WHERE "id" = $4`,
+                WHERE "id" = $4
+                RETURNING *`,
             [firstName, lastName, email, id]
         )
     } catch (error) {
