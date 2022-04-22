@@ -1,7 +1,8 @@
 import { getLogger, Logger } from 'log4js'
+import { getEnvVar } from './environment'
 
 export function createLogger(category: string): Logger {
     const logger = getLogger(category)
-    logger.level = process.env.LOGGER_LEVEL || 'info'
+    logger.level = getEnvVar('LOGGER_LEVEL', 'info')!
     return logger
 }

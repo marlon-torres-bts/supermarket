@@ -1,8 +1,9 @@
 import express from 'express'
 import routes from './routes/index'
 import 'dotenv/config'
+import { getEnvVar } from './config/environment'
 
-const port = process.env.APP_PORT
+const port = getEnvVar('APP_PORT', '4000')
 export const app = express()
 
 app.use(express.json())
